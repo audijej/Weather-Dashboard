@@ -2,3 +2,30 @@ h1 {
 text-align: center;
 font-weight: bolder;
 }
+
+#jumbotron {
+    background-color: purple;
+    margin-bottom: 0px;
+    width: 100%
+}
+
+.subheading {
+    text-align: center;
+    font-weight: bold;
+}
+
+#city-search-div {
+    background-color: grey;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#city-info {
+    text-align: center;
+    
+}
+
+#button-addon2 {
+background-color: purple;
+color: gold;
+}
