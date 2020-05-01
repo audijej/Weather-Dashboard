@@ -1,47 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
 </head>
+
 <body>
 
 
     <div class="jumbotron" id="jumbotron">
         <h1 class="display-4">Weather Dashboard</h1>
         <p class="subheading">Prepare for the weather.</p>
-      </div>
+    </div>
 
     <div class="city-search">
-    <div class="row"> 
-        <div class="input-group mb-4 col-4" id="city-search-div" >
-            <h4>Search for a city</h4>
-            <input type="text" class="form-control" placeholder="Enter city or zip code" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+        <div class="row">
+            <div class="input-group sm-4 col-4" id="city-search-div">
+                <h4>Search for a city: </h4>
+                <br>
+                <form id="searcher"></form>
+                <div class="input-group-append" id="cityButton">
+                    <ul id="kamikaze"></ul>
+                </div>
+                <div class="mainCity"></div>
+
             </div>
-          </div>
-        
 
-        
-          <div class="input-group mb-4 col-4" id="city-info">
-              <h4>Current Weather</h4>
-          </div>
-        
-          <div class="input-group mb-4 col-4"></div>
+            <div class="input-group mb-4 col-8" id="current-weather">
+                <h4 id="city-info-heading">Current Weather:</h4>
+                <div id="cityLocation"></div>
+                <img id="currentWeatherIcon">
+                <br>
+                <div id="currentTemp"></div>
+                <div id="maxTemp"></div>
+                <div id="minTemp"></div>
 
-        
+                <div id="fiveDayForecast">Five Day Forecast</div>
+
+                <div id="fiveDayer">
+                    <div class="card" style="width: 18rem;">
+                        
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
     </div>
 
-    </div>
-    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+
+
+        let inputField = $("<input>");
+        inputField.attr("id", "citySearchInput");
+        inputField.attr("placeholder", "Enter city or zip code")
+        let button = $("<button>").text("Search");
+        button.attr("id", "button-addon2")
+        $("#searcher").append(inputField).append(button);
+
+
+        function showWeather() {
+
+            let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $("#citySearchInput").val() + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
+            let fiveDayForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + $("#citySearchInput").val() + "&units=imperial&cnt=6&appid=a487a155c88326c36b7254fbcd6ac047";
+
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                let currentTemp = $("<td>").text("Current Temperature: " + response.main.temp + "° F")
+                let maxTemp = $("<td>").text("Max Temperature: " + response.main.temp_max + "° F");
+                let minTemp = $("<td>").text("Low Temperature: " + response.main.temp_min + "° F");
+                let cityLocation = $("<td>").text("City: " + response.name);
+                let currentWeatherIcon = $("<img/>").attr("src", response.weather);
+                let iconImg = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+
+                $("#cityLocation").empty();
+                $("#currentTemp").empty();
+                $("#maxTemp").empty();
+                $("#minTemp").empty();
+                $("#mainCity").empty();
+                $("#currentWeatherIcon").empty();
+
+                let nowIcon = $("#currentWeatherIcon").attr("src", iconImg);
+                $("#cityLocation").append(cityLocation);
+                $("#currentTemp").append(currentTemp);
+                $("#maxTemp").append(maxTemp);
+                $("#minTemp").append(minTemp);
+                $("#mainCity").append(response.name);
+
+
+                let cityList = $("<ul>");
+                let cityButton = $("<button>").text(response.name);
+                cityButton.attr("id", "button-addon2");
+                let cityLineUp = cityList.append(cityButton);
+                let buttonbutton = $("#kamikaze").append(cityLineUp);
+
+                console.log(response.name);
+                console.log(response);
+                console.log(buttonbutton)
+            });
+
+            for (let i = 0; i < 5; i++) {
+
+                $.ajax({
+                    url: fiveDayForecast,
+                    method: "GET"
+                }).then(function (response) {
+                    let fiveDay = $("<h5>").text("Temp: " + JSON.stringify(response.list[i].main.temp));
+                    let fiveHumidity = $("<h5>").text("Humidity: " + JSON.stringify(response.list[i].main.humidity));
+                    //let fiveDayIcon = "http://openweathermap.org/img/w/" + JSON.stringify(response.list[i].weather[0].icon) + ".png";
+                    let fiveDayIcon = "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png";
+                    let sushi = $("<img>").attr("src", fiveDayIcon);
+                    //$("#fiveDays").append(fiveDay).append(fiveHumidity).append(sushi);
+                    let turkey = $("<div>").text("Hello").addClass("card-body").attr("id", "fiveDays");
+                    turkey.append(fiveDay).append(fiveHumidity).append(sushi);
+                    $("#fiveDayer").append(turkey);
+                    console.log(response.list[i].weather)
+
+                })
+
+            }
+
+        }
+
+        button.click(function () {
+            event.preventDefault();
+            let inputter = $("#citySearchInput").val().trim();
+
+            showWeather(inputter);
+        })
+
+
+    </script>
+
+
 </body>
+
+
 </html>
