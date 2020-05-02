@@ -18,6 +18,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 
 </head>
 
@@ -44,6 +46,7 @@
 
             <div class="input-group mb-4 col-8" id="current-weather">
                 <h4 id="city-info-heading">Current Weather:</h4>
+                <div id="currentDate"></div>
                 <div id="cityLocation"></div>
                 <img id="currentWeatherIcon">
                 <br>
@@ -59,7 +62,9 @@
                 <br>
                 <div id="longitude"></div>
                 <br>
-                <div id=uvIndex></div>
+                <div id="uvIndex">
+                    <div id="uvColor"></div>
+                </div>
                 <br>
                 <br>
                 <div id="fiveDayForecast">Five Day Forecast</div>
@@ -84,6 +89,8 @@
 
 
     <script type="text/javascript">
+
+
 
 
         let inputField = $("<input>");
@@ -112,12 +119,13 @@
                 let cityLocation = $("<td>").text("City: " + response.name);
                 let currentWeatherIcon = $("<img/>").attr("src", response.weather);
                 let iconImg = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
-                //let lon = $("<td>").text("Longitude: " + response.coord.lon);
-                //let lat = $("<td>").text("Latitude: " + response.coord.lat);
+                let currentDate = moment().format('MMMM Do YYYY');
+                let todaysDate = $("<h5>").text(currentDate);
+                
 
                 let lat = response.coord.lat;
                 let lon = response.coord.lon;
-                
+
                 let uvIndex = "http://api.openweathermap.org/data/2.5/uvi?appid=a487a155c88326c36b7254fbcd6ac047&lat=" + lat + "&lon=" + lon;
 
 
@@ -131,6 +139,7 @@
                 $("#windSpeed").empty();
                 $("#latitude").empty();
                 $("#longitude").empty();
+                $("#currentDate").empty();
 
                 let nowIcon = $("#currentWeatherIcon").attr("src", iconImg);
                 $("#cityLocation").append(cityLocation);
@@ -141,6 +150,7 @@
                 $("#windSpeed").append(windSpeed);
                 $("#latitude").append(lat);
                 $("#longitude").append(lon);
+                $("#currentDate").append(todaysDate);
 
 
                 let cityList = $("<ul>");
@@ -153,21 +163,34 @@
                 console.log(response);
                 console.log(lat);
                 console.log(lon);
-                
+
                 //ajax call for Uv Index
                 $.ajax({
-                url: uvIndex,
-                method: "GET"
-            }).then(function (response) {
+                    url: uvIndex,
+                    method: "GET"
+                }).then(function (response) {
 
-                $("#uvIndex").empty();
+                    $("#uvIndex").empty();
+                    let uvColor = $("<td>").text(response.value);
+                    uvColor.attr("id", "uvColoration");
+                    let currentUVIndex = $("<td>").text("UV Index: ");
+                    $("#uvIndex").append(currentUVIndex).append(uvColor);
 
-                let currentUVIndex = $("<td>").text("UV Index: " + response.value);
-                $("#uvIndex").append(currentUVIndex);
-                
-                console.log(response.value);
+                    if (response.value <=2){
+                        uvColor.addClass("low");
+                    } else if (response.value >= 3.99 && response.value <= 5.99) {
+                        uvColor.addClass("moderate");
+                    } else if (response.value >= 6.99 && response.value <= 7.99) {
+                        uvColor.addClass("high");
+                    } else if (response.value >= 8.99 && response.value <= 10.99) {
+                        uvColor.addClass("veryHigh");
+                    } else if (response.value >= 11) {
+                        uvColor.addClass("extreme");
+                    }
 
-            })
+                    console.log(response.value);
+
+                })
 
             });
 
@@ -199,7 +222,7 @@
         button.click(function () {
             event.preventDefault();
             let inputter = $("#citySearchInput").val().trim();
-        
+
             showWeather(inputter);
         })
 

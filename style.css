@@ -63,3 +63,34 @@ padding-left: 100px;
     border: solid black 3px;
     width: 18rem;
 }
+
+.low {
+    background-color: green;
+    border-radius: 10px;
+    padding: 5px;
+
+}
+
+.moderate {
+    background-color: yellow;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.high {
+    background-color: orange;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.veryHigh {
+    background-color: red;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.extreme {
+    background-color: violet;
+    border-radius: 10px;
+    padding: 5px;
+}
