@@ -213,10 +213,6 @@
             });
 
 
-
-
-
-
         }
 
         function renderCityButton () {
@@ -265,11 +261,18 @@
         $("#button-addon3").click(function () {
             event.preventDefault();
             let inputter = $("#citySearchInput").val().trim();
+            cityButtonList.push(inputter);
             renderCityButton(inputter);
             showWeather(inputter);
         })
 
-
+        $("#button-addon2").click(function () {
+            event.preventDefault();
+            let outputter = $("#citySearchInput").val().trim();
+            cityButtonList.push(inputter);
+            
+            showWeather(outputter);
+        })
 
 
 
