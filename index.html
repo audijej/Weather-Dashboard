@@ -41,7 +41,11 @@
                     <input type="text" id="citySearchInput" placeholder="Enter City"><input id="button-addon3" type="submit" value="Search!">
                 </form>
                 <div class="input-group-append" id="cityButton">
-                    <ul id="kamikaze"></ul>
+
+                    <ul id="kamikaze">
+                        <div id="buttons-view"></div>
+
+                    </ul>
                     
 
                 </div>
@@ -155,45 +159,11 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-                let cityList = $("<ul>");
-                let cityButton = $("<button class='histbtn'>").text(response.name);
-                cityButton.attr("id", "button-addon2");
-                cityButton.data(response.name, response.wind.speed)
-                let cityLineUp = cityList.append(cityButton);
-                let buttonbutton = $("#kamikaze").append(cityLineUp);
-
-                // cityButton.click(function (event) {
-                //     event.preventDefault();
-                //     //let inputter = $("#citySearchInput").val().trim();
-
-                //     //showWeather(inputter);
-                //     console.log("touchdown");
-                // })
-
-                let coffee = $(".histbtn").each(function () {
-
-                    $(this).attr("id", $(this).val(response.name));
-                    console.log($(".histbtn").val());
-
-                    // $(".histbtn").click(function () {
-                    //     event.preventDefault();
-                    //     console.log("cool");
-                    //     let outputter = $(this).val();
-                    //     showWeather(outputter);
-
-                    // });
-
-                });
-
-                coffee.click(function () {
-                    console.log(cityButton);
-
-                });
+                
 
 
                 console.log(response.name);
                 console.log(response);
-                console.log(coffee.val());
                
                 $.ajax({
                     url: fiveDayForecast,
@@ -249,13 +219,53 @@
 
         }
 
+        function renderCityButton () {
+
+
+
+            let cityList = $("<ul>");
+                let cityButton = $("<button class='histbtn'>").text($("#citySearchInput").val().trim());
+                cityButton.attr("id", "button-addon2");
+                let cityLineUp = cityList.append(cityButton);
+                let buttonbutton = $("#buttons-view").append(cityLineUp);
+
+                // cityButton.click(function (event) {
+                //     event.preventDefault();
+                //     //let inputter = $("#citySearchInput").val().trim();
+
+                //     //showWeather(inputter);
+                //     console.log("touchdown");
+                // })
+
+                // let coffee = $(".histbtn").each(function () {
+
+                //     $(this).attr("id", $(this).val(response.name));
+                //     console.log($(".histbtn").val());
+
+                    // $(".histbtn").click(function () {
+                    //     event.preventDefault();
+                    //     console.log("cool");
+                    //     let outputter = $(this).val();
+                    //     showWeather(outputter);
+
+                    // });
+
+              //  });
+
+                // coffee.click(function () {
+                //     console.log(cityButton);
+
+                // });
+
+        }
+
         //  let savedCity = localStorage.getItem('#input-' + i);
         //      $('#input-' + i).val(savedInput);
 
         $("#button-addon3").click(function () {
             event.preventDefault();
             let inputter = $("#citySearchInput").val().trim();
-            //renderButtons(inputter);
+            renderCityButton(inputter);
             showWeather(inputter);
         })
 
