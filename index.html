@@ -36,9 +36,14 @@
             <div class="input-group sm-4 col-4" id="city-search-div">
                 <h4>Search for a city: </h4>
                 <br>
-                <form id="searcher"></form>
+                <form id="searcher">
+                    <label for="city-input">Search:</label>
+                    <input type="text" id="citySearchInput" placeholder="Enter City"><input id="button-addon3" type="submit" value="Search!">
+                </form>
                 <div class="input-group-append" id="cityButton">
                     <ul id="kamikaze"></ul>
+                    
+
                 </div>
                 <div class="mainCity"></div>
                 <div id="taco"></div>
@@ -91,19 +96,18 @@
 
         let cityButtonList = [];
 
-        let inputField = $("<input>");
-        inputField.attr("id", "citySearchInput");
-        inputField.attr("placeholder", "Enter city or zip code")
-        let button = $("<button>").text("Search");
-        button.attr("id", "button-addon2")
-        $("#searcher").append(inputField).append(button);
+// replaced with hard code is html 5/3/2020 1:36am
+        // let inputField = $("<input>");
+        // inputField.attr("id", "citySearchInput");
+        // inputField.attr("placeholder", "Enter city or zip code")
+        // let button = $("<button>").text("Search");
+        // button.attr("id", "button-addon2")
+        // $("#searcher").append(inputField).append(button);
 
 
         function showWeather() {
 
             let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $("#citySearchInput").val() + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
-            //let fiveDayForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + $("#citySearchInput").val() + "&units=imperial&cnt=6&appid=a487a155c88326c36b7254fbcd6ac047";
-
 
             $.ajax({
                 url: queryURL,
@@ -150,7 +154,7 @@
                 $("#fiveDayForecast").append(fiveDayHeading);
 
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////
                 let cityList = $("<ul>");
                 let cityButton = $("<button class='histbtn'>").text(response.name);
                 cityButton.attr("id", "button-addon2");
@@ -190,40 +194,33 @@
                 console.log(response.name);
                 console.log(response);
                 console.log(coffee.val());
-                //ajax call for Uv Index
+               
                 $.ajax({
-                    url: uvIndex,
+                    url: fiveDayForecast,
                     method: "GET"
                 }).then(function (response) {
 
+                    // current UV index with appropriate classification color code
                     $("#uvIndex").empty();
-                    let uvColor = $("<td>").text(response.value);
+                    let uvColor = $("<td>").text(response.current.uvi);
                     uvColor.attr("id", "uvColoration");
                     let currentUVIndex = $("<td>").text("UV Index: ");
                     $("#uvIndex").append(currentUVIndex).append(uvColor);
 
-                    if (response.value <= 2) {
+                    if (response.current.uvi <= 2) {
                         uvColor.addClass("low");
-                    } else if (response.value >= 3.99 && response.value <= 5.99) {
+                    } else if (response.current.uvi >= 3.99 && response.current.uvi <= 5.99) {
                         uvColor.addClass("moderate");
-                    } else if (response.value >= 6.99 && response.value <= 7.99) {
+                    } else if (response.current.uvi >= 6.99 && response.current.uvi <= 7.99) {
                         uvColor.addClass("high");
-                    } else if (response.value >= 8.99 && response.value <= 10.99) {
+                    } else if (response.current.uvi >= 8.99 && response.current.uvi <= 10.99) {
                         uvColor.addClass("veryHigh");
-                    } else if (response.value >= 11) {
+                    } else if (response.current.uvi >= 11) {
                         uvColor.addClass("extreme");
                     }
 
                     console.log(response.value);
 
-                })
-
-
-
-                $.ajax({
-                    url: fiveDayForecast,
-                    method: "GET"
-                }).then(function (response) {
                     for (let i = 1; i < 6; i++) {
 
                         let fiveDate = $("<h5>").text("Date: " + moment.unix(response.daily[i].dt).format("MM/DD/YYYY"));
@@ -236,6 +233,7 @@
                         turkey.append(fiveDate).append(fiveDayTemp).append(fiveHumidity).append(sushi);
                         $("#fiveDayer").append(turkey);
                         console.log(response);
+                        console.log(response.current.uvi)
 
                     }
                 })
@@ -254,7 +252,7 @@
         //  let savedCity = localStorage.getItem('#input-' + i);
         //      $('#input-' + i).val(savedInput);
 
-        button.click(function () {
+        $("#button-addon3").click(function () {
             event.preventDefault();
             let inputter = $("#citySearchInput").val().trim();
             //renderButtons(inputter);
@@ -264,10 +262,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </script>
 
 
 </body>
+
+
 
 
 </html>
