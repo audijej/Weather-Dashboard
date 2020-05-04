@@ -43,7 +43,7 @@ background-color: purple;
 color: gold;
 }
 
-#button-addon2 {
+.histbtn {
     background-color: purple;
     color: gold;
     border: solid black 2px;

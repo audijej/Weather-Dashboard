@@ -38,7 +38,8 @@
                 <br>
                 <form id="searcher">
                     <label for="city-input">Search:</label>
-                    <input type="text" id="citySearchInput" placeholder="Enter City"><input id="button-addon3" type="submit" value="Search!">
+                    <input type="text" id="citySearchInput" placeholder="Enter City"><input id="button-addon3"
+                        type="submit" value="Search!">
                 </form>
                 <div class="input-group-append" id="cityButton">
 
@@ -46,7 +47,7 @@
                         <div id="buttons-view"></div>
 
                     </ul>
-                    
+
 
                 </div>
                 <div class="mainCity"></div>
@@ -100,7 +101,7 @@
 
         let cityButtonList = [];
 
-// replaced with hard code is html 5/3/2020 1:36am
+        // replaced with hard code is html 5/3/2020 1:36am
         // let inputField = $("<input>");
         // inputField.attr("id", "citySearchInput");
         // inputField.attr("placeholder", "Enter city or zip code")
@@ -111,6 +112,7 @@
 
         function showWeather() {
 
+            let weatherInfo = $(this).attr("data-name");
             let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $("#citySearchInput").val() + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
 
             $.ajax({
@@ -158,13 +160,13 @@
                 $("#fiveDayForecast").append(fiveDayHeading);
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-                
+                /////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
                 console.log(response.name);
                 console.log(response);
-               
+
                 $.ajax({
                     url: fiveDayForecast,
                     method: "GET"
@@ -215,64 +217,81 @@
 
         }
 
-        function renderCityButton () {
+        function renderCityButton() {
 
+            $("#buttons-view").empty();
 
+            for (let i = 0; i < cityButtonList.length; i++) {
 
-            let cityList = $("<ul>");
-                let cityButton = $("<button class='histbtn'>").text($("#citySearchInput").val().trim());
-                cityButton.attr("id", "button-addon2");
+                let cityList = $("<ul>");
+                let cityButton = $("<button>").text(cityButtonList[i]);
+                cityButton.addClass("histbtn")
+
+                cityButton.attr("data-name", cityButtonList[i]);
+
+                //cityButton.attr("id", "button-addon2-" + $("#citySearchInput").val().trim());
                 let cityLineUp = cityList.append(cityButton);
-                let buttonbutton = $("#buttons-view").append(cityLineUp);
+                $("#buttons-view").append(cityLineUp);
+                console.log(cityButton);
 
-                // cityButton.click(function (event) {
-                //     event.preventDefault();
-                //     //let inputter = $("#citySearchInput").val().trim();
 
-                //     //showWeather(inputter);
-                //     console.log("touchdown");
-                // })
+            }
 
-                // let coffee = $(".histbtn").each(function () {
 
-                //     $(this).attr("id", $(this).val(response.name));
-                //     console.log($(".histbtn").val());
+            // cityButton.click(function (event) {
+            //     event.preventDefault();
+            //     //let inputter = $("#citySearchInput").val().trim();
 
-                    // $(".histbtn").click(function () {
-                    //     event.preventDefault();
-                    //     console.log("cool");
-                    //     let outputter = $(this).val();
-                    //     showWeather(outputter);
+            //     //showWeather(inputter);
+            //     console.log("touchdown");
+            // })
 
-                    // });
+            // let coffee = $(".histbtn").each(function () {
 
-              //  });
+            //     $(this).attr("id", $(this).val(response.name));
+            //     console.log($(".histbtn").val());
 
-                // coffee.click(function () {
-                //     console.log(cityButton);
+            // $(".histbtn").click(function () {
+            //     event.preventDefault();
+            //     console.log("cool");
+            //     let outputter = $(this).val();
+            //     showWeather(outputter);
 
-                // });
+            // });
+
+            //  });
+
+            // coffee.click(function () {
+            //     console.log(cityButton);
+
+            // });
 
         }
 
         //  let savedCity = localStorage.getItem('#input-' + i);
         //      $('#input-' + i).val(savedInput);
 
+
+        $(".histbtn").click(function () {
+            event.preventDefault();
+            let outputter = $("#citySearchInput").val().trim();
+            console.log("hi there");
+            showWeather(outputter);
+        })
+
         $("#button-addon3").click(function () {
             event.preventDefault();
             let inputter = $("#citySearchInput").val().trim();
             cityButtonList.push(inputter);
-            renderCityButton(inputter);
+
+            renderCityButton();
             showWeather(inputter);
         })
 
-        $("#button-addon2").click(function () {
-            event.preventDefault();
-            let outputter = $("#citySearchInput").val().trim();
-            cityButtonList.push(inputter);
-            
-            showWeather(outputter);
-        })
+        $(document).on("click", ".histbtn", showWeather);
+
+
+
 
 
 
