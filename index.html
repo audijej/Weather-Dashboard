@@ -44,6 +44,7 @@
                 <div class="input-group-append" id="cityButton">
 
                     <ul id="kamikaze">
+
                         <div id="buttons-view"></div>
 
                     </ul>
@@ -110,10 +111,10 @@
         // $("#searcher").append(inputField).append(button);
 
 
-        function showWeather() {
+        function showWeather(city) {
 
-            let weatherInfo = $(this).attr("data-name");
-            let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $("#citySearchInput").val() + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
+            //let weatherInfo = $(this).attr("data-name");
+            let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
 
             $.ajax({
                 url: queryURL,
@@ -164,8 +165,8 @@
 
 
 
-                console.log(response.name);
-                console.log(response);
+                // console.log(response.name);
+                //console.log(response);
 
                 $.ajax({
                     url: fiveDayForecast,
@@ -191,7 +192,7 @@
                         uvColor.addClass("extreme");
                     }
 
-                    console.log(response.value);
+                    // console.log(response.value);
 
                     for (let i = 1; i < 6; i++) {
 
@@ -204,8 +205,8 @@
                         let turkey = $("<div>").addClass("card-body").attr("id", "fiveDays");
                         turkey.append(fiveDate).append(fiveDayTemp).append(fiveHumidity).append(sushi);
                         $("#fiveDayer").append(turkey);
-                        console.log(response);
-                        console.log(response.current.uvi)
+                        //console.log(response);
+                        //console.log(response.current.uvi)
 
                     }
                 })
@@ -225,7 +226,7 @@
 
                 let cityList = $("<ul>");
                 let cityButton = $("<button>").text(cityButtonList[i]);
-                cityButton.addClass("histbtn")
+                cityButton.addClass("histbtn");
 
                 cityButton.attr("data-name", cityButtonList[i]);
 
@@ -237,58 +238,30 @@
 
             }
 
-
-            // cityButton.click(function (event) {
-            //     event.preventDefault();
-            //     //let inputter = $("#citySearchInput").val().trim();
-
-            //     //showWeather(inputter);
-            //     console.log("touchdown");
-            // })
-
-            // let coffee = $(".histbtn").each(function () {
-
-            //     $(this).attr("id", $(this).val(response.name));
-            //     console.log($(".histbtn").val());
-
-            // $(".histbtn").click(function () {
-            //     event.preventDefault();
-            //     console.log("cool");
-            //     let outputter = $(this).val();
-            //     showWeather(outputter);
-
-            // });
-
-            //  });
-
-            // coffee.click(function () {
-            //     console.log(cityButton);
-
-            // });
-
         }
 
-        //  let savedCity = localStorage.getItem('#input-' + i);
-        //      $('#input-' + i).val(savedInput);
 
-
-        $(".histbtn").click(function () {
+        $(cityButton).click(function (event) {
             event.preventDefault();
-            let outputter = $("#citySearchInput").val().trim();
+           let meeko = $(".histbtn").attr("data-name");
+            //let outputter = $(this, cityButtonList[i]);
             console.log("hi there");
-            showWeather(outputter);
+            showWeather(meeko);
+            //console.log(outputter);
+            console.log(meeko);
         })
 
-        $("#button-addon3").click(function () {
+        $("#button-addon3").click(function (event) {
             event.preventDefault();
             let inputter = $("#citySearchInput").val().trim();
             cityButtonList.push(inputter);
 
             renderCityButton();
             showWeather(inputter);
+
         })
 
-        $(document).on("click", ".histbtn", showWeather);
+      // $(document).on("click", ".histbtn", showWeather());
 
 
 
