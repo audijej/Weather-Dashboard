@@ -79,10 +79,10 @@
                 <img id="fiveDayWeatherIcon">
 
                 <div id="fiveDayer">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card">
 
                     </div>
-
+ 
                 </div>
             </div>
 
@@ -182,11 +182,11 @@
 
                     if (response.current.uvi <= 2) {
                         uvColor.addClass("low");
-                    } else if (response.current.uvi >= 3.99 && response.current.uvi <= 5.99) {
+                    } else if (response.current.uvi >= 3 && response.current.uvi <= 5.99) {
                         uvColor.addClass("moderate");
-                    } else if (response.current.uvi >= 6.99 && response.current.uvi <= 7.99) {
+                    } else if (response.current.uvi >= 6 && response.current.uvi <= 7.99) {
                         uvColor.addClass("high");
-                    } else if (response.current.uvi >= 8.99 && response.current.uvi <= 10.99) {
+                    } else if (response.current.uvi >= 8 && response.current.uvi <= 10.99) {
                         uvColor.addClass("veryHigh");
                     } else if (response.current.uvi >= 11) {
                         uvColor.addClass("extreme");
@@ -233,9 +233,8 @@
                 //cityButton.attr("id", "button-addon2-" + $("#citySearchInput").val().trim());
                 let cityLineUp = cityList.append(cityButton);
                 $("#buttons-view").append(cityLineUp);
-                console.log(cityButton);
-
-
+                console.log(cityButtonList[i]);
+                
             }
 
         }
@@ -244,24 +243,27 @@
         $(cityButton).click(function (event) {
             event.preventDefault();
            let meeko = $(".histbtn").attr("data-name");
-            //let outputter = $(this, cityButtonList[i]);
+            //let outputter = $(".histbtn", cityButtonList[i]);
             console.log("hi there");
-            showWeather(meeko);
-            //console.log(outputter);
+            cityButtonList.push(meeko);
             console.log(meeko);
+            showWeather(meeko);
         })
 
         $("#button-addon3").click(function (event) {
             event.preventDefault();
             let inputter = $("#citySearchInput").val().trim();
             cityButtonList.push(inputter);
-
             renderCityButton();
             showWeather(inputter);
 
         })
 
-      // $(document).on("click", ".histbtn", showWeather());
+
+
+      $(document).on("click", ".histbtn", showWeather);
+
+      renderCityButton();
 
 
 
