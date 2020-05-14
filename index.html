@@ -38,8 +38,8 @@
                 <br>
                 <form id="searcher">
                     <label for="city-input">Search:</label>
-                    <input type="text" id="citySearchInput" placeholder="Enter City"><input id="button-addon3"
-                        type="submit" value="Search!">
+                    <input type="text" id="citySearchInput" placeholder="Enter City">
+                    <input id="button-addon3" type="submit" value="Search!">
                 </form>
                 <div class="input-group-append" id="cityButton">
 
@@ -113,8 +113,7 @@
 
         function showWeather(city) {
 
-            //let weatherInfo = $(this).attr("data-name");
-            let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
+                        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
 
             $.ajax({
                 url: queryURL,
@@ -236,14 +235,14 @@
 
         }
 
-        $(cityButton).click(function (event) {
-            event.preventDefault();
-            let forecastRecall = $(".histbtn").attr("data-name");
-            //let outputter = $("#citySearchInput").val().trim();
-            console.log("hi there");
-            console.log(forecastRecall);
-            showWeather(forecastRecall);
-        })
+        // $("#buttons-view").click(function (event) {
+        //     event.preventDefault();
+        //     let forecastRecall = $(".histbtn").attr("data-name");
+        //     //let outputter = $("#citySearchInput").val().trim();
+        //     console.log("hi there");
+        //     console.log(forecastRecall);
+        //     showWeather(forecastRecall);
+        // })
 
         $("#button-addon3").click(function (event) {
             event.preventDefault();
@@ -254,8 +253,15 @@
 
         })
 
+        function showMeMoreWeather() {
 
-        // $(document).on("click", ".histbtn", showWeather);
+            let weatherInfo = $(this).attr("data-name");
+            console.log(weatherInfo);
+            showWeather(weatherInfo);
+        }
+
+
+         $(document).on("click", ".histbtn", showMeMoreWeather);
 
 function findMyCity(param1, param2, param3, param4) {
     
