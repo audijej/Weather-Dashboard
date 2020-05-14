@@ -82,7 +82,7 @@
                     <div class="card">
 
                     </div>
- 
+
                 </div>
             </div>
 
@@ -227,27 +227,22 @@
                 let cityList = $("<ul>");
                 let cityButton = $("<button>").text(cityButtonList[i]);
                 cityButton.addClass("histbtn");
-
                 cityButton.attr("data-name", cityButtonList[i]);
-
-                //cityButton.attr("id", "button-addon2-" + $("#citySearchInput").val().trim());
                 let cityLineUp = cityList.append(cityButton);
                 $("#buttons-view").append(cityLineUp);
                 console.log(cityButtonList[i]);
-                
+
             }
 
         }
 
-
         $(cityButton).click(function (event) {
             event.preventDefault();
-           let meeko = $(".histbtn").attr("data-name");
-            //let outputter = $(".histbtn", cityButtonList[i]);
+            let forecastRecall = $(".histbtn").attr("data-name");
+            //let outputter = $("#citySearchInput").val().trim();
             console.log("hi there");
-            cityButtonList.push(meeko);
-            console.log(meeko);
-            showWeather(meeko);
+            console.log(forecastRecall);
+            showWeather(forecastRecall);
         })
 
         $("#button-addon3").click(function (event) {
@@ -260,15 +255,16 @@
         })
 
 
+        // $(document).on("click", ".histbtn", showWeather);
 
-      $(document).on("click", ".histbtn", showWeather);
+function findMyCity(param1, param2, param3, param4) {
+    
+    
+    console.log (param1 + param4);
+}
 
-      renderCityButton();
 
-
-
-
-
+findMyCity(10, 20, 30, 40);
 
 
 
