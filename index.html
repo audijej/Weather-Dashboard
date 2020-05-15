@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
 
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -42,18 +42,12 @@
                     <input id="button-addon3" type="submit" value="Search!">
                 </form>
                 <div class="input-group-append" id="cityButton">
-
-                    <ul id="kamikaze">
-
                         <div id="buttons-view"></div>
-
-                    </ul>
-
-
                 </div>
                 <div class="mainCity"></div>
-                <div id="taco"></div>
             </div>
+
+            
 
             <div class="input-group mb-4 col-8" id="current-weather">
                 <div id="currentWeatherHeading"></div>
@@ -102,7 +96,7 @@
 
         let cityButtonList = [];
 
-        // replaced with hard code is html 5/3/2020 1:36am
+        // replaced with hard code in html 5/3/2020 1:36am
         // let inputField = $("<input>");
         // inputField.attr("id", "citySearchInput");
         // inputField.attr("placeholder", "Enter city or zip code")
@@ -110,11 +104,11 @@
         // button.attr("id", "button-addon2")
         // $("#searcher").append(inputField).append(button);
 
-            init();
+        init();
 
         function showWeather(city) {
 
-                        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
+            let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
 
             $.ajax({
                 url: queryURL,
@@ -163,11 +157,6 @@
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-                // console.log(response.name);
-                //console.log(response);
-
                 $.ajax({
                     url: fiveDayForecast,
                     method: "GET"
@@ -192,8 +181,6 @@
                         uvColor.addClass("extreme");
                     }
 
-                    // console.log(response.value);
-
                     for (let i = 1; i < 6; i++) {
 
                         let fiveDate = $("<h5>").text("Date: " + moment.unix(response.daily[i].dt).format("MM/DD/YYYY"));
@@ -205,9 +192,7 @@
                         let turkey = $("<div>").addClass("card-body").attr("id", "fiveDays");
                         turkey.append(fiveDate).append(fiveDayTemp).append(fiveHumidity).append(sushi);
                         $("#fiveDayer").append(turkey);
-                        //console.log(response);
-                        //console.log(response.current.uvi)
-
+                        
                     }
                 })
 
@@ -236,15 +221,6 @@
 
         }
 
-        // $("#buttons-view").click(function (event) {
-        //     event.preventDefault();
-        //     let forecastRecall = $(".histbtn").attr("data-name");
-        //     //let outputter = $("#citySearchInput").val().trim();
-        //     console.log("hi there");
-        //     console.log(forecastRecall);
-        //     showWeather(forecastRecall);
-        // })
-
         $("#button-addon3").click(function (event) {
             event.preventDefault();
             let inputter = $("#citySearchInput").val().trim();
@@ -253,9 +229,6 @@
             showWeather(inputter);
             $("#citySearchInput").empty();
             localStorage.setItem("#city-search-div", JSON.stringify(cityButtonList));
-            //let savedCity = JSON.parse(localStorage.getItem(".histbtn"));
-            console.log(renderCityButton());
-
         })
 
         function showMeMoreWeather() {
@@ -268,31 +241,18 @@
 
 
 
-         $(document).on("click", ".histbtn", showMeMoreWeather);
+        $(document).on("click", ".histbtn", showMeMoreWeather);
 
-         function init() {
+        function init() {
 
-     let storedCities = JSON.parse(localStorage.getItem("#city-search-div"));
+            let storedCities = JSON.parse(localStorage.getItem("#city-search-div"));
 
             if (storedCities !== null) {
                 cityButtonList = storedCities;
             }
-        renderCityButton();
+            renderCityButton();
 
-    }
-
-function findMyCity(param1, param2, param3, param4) {
-    
-    
-    console.log (param1 + param4);
-}
-
-
-findMyCity(10, 20, 30, 40);
-
-
-
-
+        }
 
     </script>
 
