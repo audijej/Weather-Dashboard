@@ -110,6 +110,7 @@
         // button.attr("id", "button-addon2")
         // $("#searcher").append(inputField).append(button);
 
+            init();
 
         function showWeather(city) {
 
@@ -250,6 +251,10 @@
             cityButtonList.push(inputter);
             renderCityButton();
             showWeather(inputter);
+            $("#citySearchInput").empty();
+            localStorage.setItem("#city-search-div", JSON.stringify(cityButtonList));
+            //let savedCity = JSON.parse(localStorage.getItem(".histbtn"));
+            console.log(renderCityButton());
 
         })
 
@@ -261,7 +266,20 @@
         }
 
 
+
+
          $(document).on("click", ".histbtn", showMeMoreWeather);
+
+         function init() {
+
+     let storedCities = JSON.parse(localStorage.getItem("#city-search-div"));
+
+            if (storedCities !== null) {
+                cityButtonList = storedCities;
+            }
+        renderCityButton();
+
+    }
 
 function findMyCity(param1, param2, param3, param4) {
     
@@ -271,27 +289,6 @@ function findMyCity(param1, param2, param3, param4) {
 
 
 findMyCity(10, 20, 30, 40);
-
-
-
-
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
 
 
 
