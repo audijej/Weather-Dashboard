@@ -13,7 +13,7 @@ The user can simply search any desired city and upon clicking search, a forecast
 
 [Weather Dashboard](https://audijej.github.io/Weather-Dashboard/)
 
-![Image of Weather Dashboard](weatherDashboardScreenShot.png)
+![Image of Weather Dashboard](WeatherDashboard.gif)
 
 # License
 
