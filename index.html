@@ -42,12 +42,10 @@
                     <input id="button-addon3" type="submit" value="Search!">
                 </form>
                 <div class="input-group-append" id="cityButton">
-                        <div id="buttons-view"></div>
+                    <div id="buttons-view"></div>
                 </div>
-                <div class="mainCity"></div>
+                
             </div>
-
-            
 
             <div class="input-group mb-4 col-8" id="current-weather">
                 <div id="currentWeatherHeading"></div>
@@ -73,10 +71,7 @@
                 <img id="fiveDayWeatherIcon">
 
                 <div id="fiveDayer">
-                    <div class="card">
-
-                    </div>
-
+                    <div class="card"></div>
                 </div>
             </div>
 
@@ -121,21 +116,20 @@
                 let minTemp = $("<td>").text("Low Temperature: " + response.main.temp_min + "° F");
                 let windSpeed = $("<td>").text("Wind Speed: " + response.wind.speed + " MPH");
                 let currentWeatherIcon = $("<img/>").attr("src", response.weather);
-                let iconImg = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+                let iconImg = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
                 let currentWeatherHeading = $("<h3>").text("Current Weather");
                 let fiveDayHeading = $("<h4>").text("5 Day Forecast:")
 
                 let lat = response.coord.lat;
                 let lon = response.coord.lon;
 
-                let uvIndex = "http://api.openweathermap.org/data/2.5/uvi?appid=a487a155c88326c36b7254fbcd6ac047&lat=" + lat + "&lon=" + lon;
+                let uvIndex = "https://api.openweathermap.org/data/2.5/uvi?appid=a487a155c88326c36b7254fbcd6ac047&lat=" + lat + "&lon=" + lon;
                 let fiveDayForecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=a487a155c88326c36b7254fbcd6ac047";
 
                 $("#cityLocation").empty();
                 $("#currentTemp").empty();
                 $("#maxTemp").empty();
                 $("#minTemp").empty();
-                $("#mainCity").empty();
                 $("#currentWeatherIcon").empty();
                 $("#fiveDayer").empty();
                 $("#windSpeed").empty();
@@ -149,7 +143,6 @@
                 $("#currentTemp").append(currentTemp);
                 $("#maxTemp").append(maxTemp);
                 $("#minTemp").append(minTemp);
-                $("#mainCity").append(response.name);
                 $("#windSpeed").append(windSpeed);
                 $("#currentWeatherHeading").append(currentWeatherHeading);
                 $("#fiveDayForecast").append(fiveDayHeading);
@@ -186,7 +179,7 @@
                         let fiveDate = $("<h5>").text("Date: " + moment.unix(response.daily[i].dt).format("MM/DD/YYYY"));
                         let fiveDayTemp = $("<h5>").text("Temp: " + response.daily[i].temp.max);
                         let fiveHumidity = $("<h5>").text("Humidity: " + response.daily[i].humidity + "%");
-                        let fiveDayIcon = "http://openweathermap.org/img/w/" + response.daily[i].weather[0].icon + ".png";
+                        let fiveDayIcon = "https://openweathermap.org/img/w/" + response.daily[i].weather[0].icon + ".png";
                         let sushi = $("<img>").attr("id", "caliroll");
                         sushi.attr("src", fiveDayIcon);
                         let turkey = $("<div>").addClass("card-body").attr("id", "fiveDays");
@@ -214,7 +207,7 @@
                 cityButton.addClass("histbtn");
                 cityButton.attr("data-name", cityButtonList[i]);
                 let cityLineUp = cityList.append(cityButton);
-                $("#buttons-view").append(cityLineUp);
+                $("#buttons-view").append(cityButton);
                 console.log(cityButtonList[i]);
 
             }
@@ -239,8 +232,6 @@
         }
 
 
-
-
         $(document).on("click", ".histbtn", showMeMoreWeather);
 
         function init() {
@@ -258,8 +249,6 @@
 
 
 </body>
-
-
 
 
 </html>

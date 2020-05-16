@@ -18,13 +18,18 @@ text-shadow: 0px 2px 3px #555;
     margin: 0px;
 }
 
-
-
 .subheading {
     text-align: center;
     font-weight: bold;
     color: #222;
 text-shadow: 0px 2px 3px #555;
+}
+
+.city-search {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: repeat (2,100px);
 }
 
 #city-search-div {
@@ -34,6 +39,7 @@ text-shadow: 0px 2px 3px #555;
     display: block;
     text-align: center;
     border: solid 3px black;
+    float: left;
 }
 
 
@@ -57,6 +63,8 @@ color: rgb(245, 238, 199);
     background-color: #34113f;
     color: gold;
     /* border: solid black 2px; */
+    display: block;
+    text-align: center;
 }
 
 .histbtn:hover {
@@ -90,8 +98,9 @@ padding-left: 100px;
     display: inline-block;
 }
 
-#buttons-view {
+#cityButton {
     text-align: center;
+    display: inline-block;
 }
 
 /* color classifications for UV index values */
@@ -134,7 +143,18 @@ padding-left: 100px;
 
 @media only screen and (max-width: 1024px) {
 
-    body {
-        background-color: red;
+    .row {
+
+        display: grid;
+
     }
+
+    #city-search-div {
+
+        margin: auto;
+        padding-right: 100%;
+        text-align: center;
+        
+    }
+    
 }
