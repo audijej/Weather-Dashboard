@@ -180,11 +180,11 @@
                         let fiveDayTemp = $("<h5>").text("Temp: " + response.daily[i].temp.max);
                         let fiveHumidity = $("<h5>").text("Humidity: " + response.daily[i].humidity + "%");
                         let fiveDayIcon = "https://openweathermap.org/img/w/" + response.daily[i].weather[0].icon + ".png";
-                        let sushi = $("<img>").attr("id", "caliroll");
-                        sushi.attr("src", fiveDayIcon);
-                        let turkey = $("<div>").addClass("card-body").attr("id", "fiveDays");
-                        turkey.append(fiveDate).append(fiveDayTemp).append(fiveHumidity).append(sushi);
-                        $("#fiveDayer").append(turkey);
+                        let fiveDayWeatherIcon = $("<img>").attr("id", "caliroll");
+                        fiveDayWeatherIcon.attr("src", fiveDayIcon);
+                        let fiveDayDiv = $("<div>").addClass("card-body").attr("id", "fiveDays");
+                        fiveDayDiv.append(fiveDate).append(fiveDayTemp).append(fiveHumidity).append(fiveDayWeatherIcon);
+                        $("#fiveDayer").append(fiveDayDiv);
                         
                     }
                 })
